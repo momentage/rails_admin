@@ -31,7 +31,7 @@ module RailsAdmin
                 @object.send("#{name}=", value)
               end
               changes = @object.changes
-              Moment.skip_callback(:update, :after, :build_activity_moment)
+              @object.rails_admin_skip_callbacks = true
               if @object.timeless.save # modified for momentage
                 @auditing_adapter && @auditing_adapter.update_object(@object, @abstract_model, _current_user, changes)
                 respond_to do |format|
